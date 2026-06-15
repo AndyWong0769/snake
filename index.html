@@ -724,9 +724,7 @@ const EMPTY = 0, SNAKE = 1, FOOD = 2;
 const DIR = { UP: 0, RIGHT: 1, DOWN: 2, LEFT: 3 };
 
 // --- Server config ---
-// 🔧 After deploying to Render, replace the URL below with your Render URL:
-//    e.g. const API_HOST = 'https://snake-leaderboard.onrender.com';
-const API_HOST = 'http://localhost:3456';
+const API_HOST = 'https://snake-leaderboard-agep.onrender.com';
 const API_BASE = (() => {
   // If running from the server itself (same origin), use relative paths
   if (window.location.origin === API_HOST || window.location.port === String(new URL(API_HOST).port)) return '';
