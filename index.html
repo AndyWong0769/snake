@@ -584,6 +584,157 @@
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+  /* ============================================================
+     MOBILE VIRTUAL D-PAD — 王者荣耀风格方向键
+     ============================================================ */
+  .dpad-wrapper {
+    display: none;  /* hidden by default, shown on touch devices */
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto;
+    flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .dpad-visible .dpad-wrapper {
+    display: block;
+  }
+  .dpad-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%,
+      rgba(60,45,30,0.52) 0%,
+      rgba(40,28,18,0.68) 60%,
+      rgba(30,20,12,0.78) 100%);
+    border: 2px solid rgba(200,170,120,0.4);
+    box-shadow:
+      0 0 30px rgba(0,0,0,0.22),
+      inset 0 1px 0 rgba(255,255,255,0.06);
+    pointer-events: none;
+  }
+  .dpad-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%,
+      rgba(220,190,140,0.55) 0%,
+      rgba(160,120,60,0.45) 50%,
+      rgba(100,70,30,0.6) 100%);
+    border: 1.5px solid rgba(200,170,120,0.45);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    z-index: 2;
+    pointer-events: none;
+  }
+  /* Directional zones — invisible hit areas with arrow indicators */
+  .dpad-zone {
+    position: absolute;
+    z-index: 1;
+    background: transparent;
+    transition: background 0.08s ease, box-shadow 0.08s ease;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+  }
+  .dpad-zone::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    transition: filter 0.08s ease;
+  }
+  /* UP */
+  .dpad-up {
+    top: 6px; left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50% 50% 20% 20%;
+  }
+  .dpad-up::after {
+    top: 12px; left: 50%;
+    transform: translateX(-50%);
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
+    border-bottom: 17px solid rgba(255,255,255,0.42);
+  }
+  /* DOWN */
+  .dpad-down {
+    bottom: 6px; left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 20% 20% 50% 50%;
+  }
+  .dpad-down::after {
+    bottom: 12px; left: 50%;
+    transform: translateX(-50%);
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
+    border-top: 17px solid rgba(255,255,255,0.42);
+  }
+  /* LEFT */
+  .dpad-left {
+    left: 6px; top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50% 20% 20% 50%;
+  }
+  .dpad-left::after {
+    left: 12px; top: 50%;
+    transform: translateY(-50%);
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-right: 17px solid rgba(255,255,255,0.42);
+  }
+  /* RIGHT */
+  .dpad-right {
+    right: 6px; top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 20% 50% 50% 20%;
+  }
+  .dpad-right::after {
+    right: 12px; top: 50%;
+    transform: translateY(-50%);
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-left: 17px solid rgba(255,255,255,0.42);
+  }
+  /* Active state — vermillion glow */
+  .dpad-zone.active {
+    background: rgba(196,69,54,0.42) !important;
+    box-shadow: 0 0 28px rgba(196,69,54,0.55), inset 0 0 18px rgba(255,200,150,0.22);
+  }
+  .dpad-zone.active::after {
+    filter: drop-shadow(0 0 6px rgba(255,220,160,0.85));
+  }
+  /* Guide cross lines */
+  .dpad-cross-h,
+  .dpad-cross-v {
+    position: absolute;
+    background: rgba(255,255,255,0.07);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .dpad-cross-h {
+    top: 50%; left: 20px; right: 20px;
+    height: 1px;
+    transform: translateY(-0.5px);
+  }
+  .dpad-cross-v {
+    left: 50%; top: 20px; bottom: 20px;
+    width: 1px;
+    transform: translateX(-0.5px);
+  }
+
   @media (max-width: 860px) {
     .app-container { padding: 16px 8px; gap: 14px; }
     .brand-wordmark { font-size: 1.4rem; }
@@ -599,6 +750,14 @@
     .mode-btn, .diff-btn { padding: 6px 10px; font-size: 0.56rem; }
     canvas { max-width: 100%; height: auto !important; }
     .leaderboard-panel { width: 100vw; max-width: 100vw; }
+    .dpad-wrapper { width: 156px; height: 156px; }
+    .dpad-center { width: 40px; height: 40px; }
+    .dpad-zone { width: 54px; height: 54px; }
+  }
+  @media (max-width: 400px) {
+    .dpad-wrapper { width: 136px; height: 136px; }
+    .dpad-center { width: 36px; height: 36px; }
+    .dpad-zone { width: 48px; height: 48px; }
   }
 </style>
 </head>
@@ -642,6 +801,22 @@
 
   <div class="board-wrapper">
     <canvas id="board"></canvas>
+  </div>
+
+  <!-- ============================================================
+       MOBILE VIRTUAL D-PAD — 王者荣耀风格方向键
+       ============================================================ -->
+  <div id="dpadContainer">
+    <div class="dpad-wrapper" id="dpadWrapper">
+      <div class="dpad-bg"></div>
+      <div class="dpad-cross-h"></div>
+      <div class="dpad-cross-v"></div>
+      <div class="dpad-center"></div>
+      <div class="dpad-zone dpad-up" data-dir="up"></div>
+      <div class="dpad-zone dpad-down" data-dir="down"></div>
+      <div class="dpad-zone dpad-left" data-dir="left"></div>
+      <div class="dpad-zone dpad-right" data-dir="right"></div>
+    </div>
   </div>
 
   <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;">
@@ -1459,7 +1634,10 @@ function draw() {
     ctx.font = '16px "JetBrains Mono", monospace';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('Press Arrow Key or Swipe to Start',
+    const startHint = isTouchDevice()
+      ? 'Tap Screen or Use D-Pad to Start'
+      : 'Press Arrow Key or Swipe to Start';
+    ctx.fillText(startHint,
       PADDING + GRID_COLS * CELL_SIZE / 2, PADDING + GRID_ROWS * CELL_SIZE / 2);
   }
 }
@@ -2619,9 +2797,145 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Touch swipe
+// ============================================================
+//  MOBILE TOUCH CONTROLS — Virtual D-Pad + Swipe fallback
+//  D-Pad supports: press-and-hold, slide between directions
+//  like Honor of Kings (王者荣耀) directional control
+// ============================================================
+
+const dpadContainer = document.getElementById('dpadContainer');
+const dpadWrapper = document.getElementById('dpadWrapper');
+const dpadZones = document.querySelectorAll('.dpad-zone');
+let dpadActive = false;
+let dpadTouchId = null;
+let dpadCurrentDir = null;
+const DIR_MAP = { up: DIR.UP, down: DIR.DOWN, left: DIR.LEFT, right: DIR.RIGHT };
+
+// Detect touch device — show D-pad only on touch-capable devices
+function isTouchDevice() {
+  return ('ontouchstart' in window) ||
+         (navigator.maxTouchPoints > 0) ||
+         (navigator.msMaxTouchPoints > 0) ||
+         (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+}
+
+// Show D-pad on touch devices or small screens
+if (isTouchDevice()) {
+  dpadContainer.classList.add('dpad-visible');
+}
+// Also show on narrow screens (likely mobile)
+if (window.matchMedia && window.matchMedia('(max-width: 860px)').matches) {
+  dpadContainer.classList.add('dpad-visible');
+}
+
+// Re-check on resize
+window.addEventListener('resize', () => {
+  if (window.matchMedia && window.matchMedia('(max-width: 860px)').matches) {
+    dpadContainer.classList.add('dpad-visible');
+  }
+});
+
+// Get direction from touch position relative to D-pad center
+function getDpadDirection(touch) {
+  const rect = dpadWrapper.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+  const dx = touch.clientX - cx;
+  const dy = touch.clientY - cy;
+  const dist = Math.sqrt(dx * dx + dy * dy);
+
+  // Dead zone: ~15% of D-pad radius — thumb resting area
+  const radius = rect.width / 2;
+  const deadZone = radius * 0.18;
+  if (dist < deadZone) return null;
+
+  // Calculate angle (0 = right, clockwise)
+  const angle = Math.atan2(dy, dx); // radians, -PI to PI
+
+  // Quadrant detection with 45° sectors
+  // UP:    -135° to -45°   (angle between -2.36 and -0.79)
+  // RIGHT: -45° to 45°     (angle between -0.79 and 0.79)
+  // DOWN:  45° to 135°     (angle between 0.79 and 2.36)
+  // LEFT:  135° to 180° or -180° to -135°
+  const deg = angle * 180 / Math.PI;
+
+  if (deg > -45 && deg <= 45) return 'right';
+  if (deg > 45 && deg <= 135) return 'down';
+  if (deg > 135 || deg <= -135) return 'left';
+  // if (deg > -135 && deg <= -45)
+  return 'up';
+}
+
+// Highlight active direction zone
+function setDpadActive(dir) {
+  dpadZones.forEach(zone => {
+    zone.classList.toggle('active', zone.dataset.dir === dir);
+  });
+}
+
+// Clear D-pad highlight
+function clearDpadActive() {
+  dpadZones.forEach(zone => zone.classList.remove('active'));
+}
+
+// D-pad touch handlers — use pointer events for better responsiveness
+dpadWrapper.addEventListener('pointerdown', (e) => {
+  if (gameOver) return;
+  e.preventDefault();
+  dpadActive = true;
+  dpadTouchId = e.pointerId;
+  dpadWrapper.setPointerCapture(e.pointerId);
+
+  const dir = getDpadDirection(e);
+  if (dir && dir !== dpadCurrentDir) {
+    dpadCurrentDir = dir;
+    setDpadActive(dir);
+    changeDirection(DIR_MAP[dir]);
+    // Haptic feedback if available
+    if (navigator.vibrate) navigator.vibrate(8);
+  }
+});
+
+dpadWrapper.addEventListener('pointermove', (e) => {
+  if (!dpadActive || gameOver) return;
+  e.preventDefault();
+
+  const dir = getDpadDirection(e);
+  if (dir && dir !== dpadCurrentDir) {
+    dpadCurrentDir = dir;
+    setDpadActive(dir);
+    changeDirection(DIR_MAP[dir]);
+    if (navigator.vibrate) navigator.vibrate(6);
+  } else if (!dir) {
+    // In dead zone — keep current highlight but don't change direction
+  }
+});
+
+dpadWrapper.addEventListener('pointerup', (e) => {
+  dpadActive = false;
+  dpadTouchId = null;
+  dpadCurrentDir = null;
+  clearDpadActive();
+  if (e.pointerId !== undefined) dpadWrapper.releasePointerCapture(e.pointerId);
+});
+
+dpadWrapper.addEventListener('pointercancel', () => {
+  dpadActive = false;
+  dpadTouchId = null;
+  dpadCurrentDir = null;
+  clearDpadActive();
+});
+
+// Prevent scrolling on D-pad
+dpadWrapper.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+}, { passive: false });
+
+// --- Canvas swipe (fallback for tablets / non-D-pad areas) ---
 let touchStartX = 0, touchStartY = 0;
 canvas.addEventListener('touchstart', (e) => {
+  // Don't interfere with D-pad interaction
+  if (dpadActive) return;
   e.preventDefault();
   if (e.touches.length === 1) {
     touchStartX = e.touches[0].clientX;
@@ -2630,6 +2944,7 @@ canvas.addEventListener('touchstart', (e) => {
 }, { passive: false });
 
 canvas.addEventListener('touchend', (e) => {
+  if (dpadActive) return;
   e.preventDefault();
   if (gameOver) return;
   const dx = (e.changedTouches[0]?.clientX || touchStartX) - touchStartX;
