@@ -875,8 +875,8 @@ const FORMS = [
     outline: '#4a0a05',
     eyeWhite: '#ffe8a0',
     eyePupil: '#ff1800',
-    eyeSize: 0.24,
-    headWidthMul: 2.2,
+    eyeSize: 0.18,
+    headWidthMul: 1.4,
     bodyWidth: 0.94,
     scalePattern: 'dragon_scales',
     tongueColor: '#ff2010',
@@ -1787,23 +1787,23 @@ function drawDragonHead(x, y, bw, f, bodyPoints) {
   const perpY = cosA;
 
   const hw = bw * f.headWidthMul;
-  const hl = bw * 2.4;
+  const hl = bw * 1.35;
   const eyeR = bw * f.eyeSize;
 
-  // === FIRE AURA — large, dramatic ===
-  const auraGrad = ctx.createRadialGradient(x, y, hw * 0.5, x, y, hw * 2.5);
-  auraGrad.addColorStop(0, 'rgba(255,160,30,0.35)');
-  auraGrad.addColorStop(0.4, 'rgba(255,80,20,0.15)');
-  auraGrad.addColorStop(0.7, 'rgba(255,40,10,0.05)');
+  // === FIRE AURA — subtle ===
+  const auraGrad = ctx.createRadialGradient(x, y, hw * 0.4, x, y, hw * 1.8);
+  auraGrad.addColorStop(0, 'rgba(255,160,30,0.25)');
+  auraGrad.addColorStop(0.4, 'rgba(255,80,20,0.10)');
+  auraGrad.addColorStop(0.7, 'rgba(255,40,10,0.03)');
   auraGrad.addColorStop(1, 'rgba(255,20,0,0)');
   ctx.fillStyle = auraGrad;
   ctx.beginPath();
-  ctx.arc(x, y, hw * 2.5, 0, Math.PI * 2);
+  ctx.arc(x, y, hw * 1.8, 0, Math.PI * 2);
   ctx.fill();
 
-  // === ANTLERS (鹿角) — more elaborate branching ===
+  // === ANTLERS (鹿角) — scaled down branching ===
   function drawAntler(baseX, baseY, branchAngle, scale) {
-    const mainLen = bw * 1.5 * scale;
+    const mainLen = bw * 1.1 * scale;
 
     // Main trunk
     const tipX = baseX + Math.cos(branchAngle) * mainLen;
@@ -2065,7 +2065,7 @@ function drawDragonHead(x, y, bw, f, bodyPoints) {
     const wsx = whiskerStartX + perpX * hw * 0.38 * side;
     const wsy = whiskerStartY + perpY * hw * 0.38 * side;
 
-    const wLen = bw * 3.0;
+    const wLen = bw * 1.8;
     const wave = Date.now() / 800;
     const waveOff = Math.sin(wave + side * 1.5) * bw * 0.3;
 
@@ -2104,7 +2104,7 @@ function drawDragonHead(x, y, bw, f, bodyPoints) {
     const maneAngle = angle + Math.PI + (i - 3) * 0.3;
     const maneBaseX = x + cosA * hl * (-0.3) + perpX * (i - 3) * hw * 0.35;
     const maneBaseY = y + sinA * hl * (-0.3) + perpY * (i - 3) * hw * 0.35;
-    const maneLen = bw * (0.9 + (i % 3) * 0.5);
+    const maneLen = bw * (0.6 + (i % 3) * 0.35);
     const maneTipX = maneBaseX + Math.cos(maneAngle) * maneLen;
     const maneTipY = maneBaseY + Math.sin(maneAngle) * maneLen;
 
