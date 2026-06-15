@@ -727,7 +727,7 @@ const DIR = { UP: 0, RIGHT: 1, DOWN: 2, LEFT: 3 };
 const API_HOST = 'https://snake-leaderboard-agep.onrender.com';
 const API_BASE = (() => {
   // If running from the server itself (same origin), use relative paths
-  if (window.location.origin === API_HOST || window.location.port === String(new URL(API_HOST).port)) return '';
+  if (window.location.hostname === new URL(API_HOST).hostname) return '';
   return API_HOST;
 })();
 let serverOnline = false;
